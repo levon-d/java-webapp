@@ -16,7 +16,7 @@ public class HelloWorldServletAndJSP extends HttpServlet
 
     // Then forward to JSP.
     ServletContext context = getServletContext();
-    RequestDispatcher dispatch = context.getRequestDispatcher("/helloworld.jsp");
+    RequestDispatcher dispatch = context.getRequestDispatcher("/views/helloworld.jsp");
     dispatch.forward(request, response);
   }
 }

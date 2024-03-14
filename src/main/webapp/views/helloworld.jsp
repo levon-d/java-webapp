@@ -17,7 +17,7 @@
   <hr>
   <p>Today's date is: <%=formatter.format(date)%></p>
   <hr>
-  <a href='index.html'>Back to the default index.html</a>
+  <a href='../index.html'>Back to the default index.html</a>
   <script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

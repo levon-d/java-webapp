@@ -7,7 +7,7 @@ public class Model {
     private DataFrame dataFrame;
 
     public Model() {
-        dataFrame = DataLoader.loadCSVData("patients100.csv");
+        this.dataFrame = DataLoader.loadCSVData("patients100.csv");
     }
 
     public void addColumn(Column column) throws ExistingColumnNameException {
