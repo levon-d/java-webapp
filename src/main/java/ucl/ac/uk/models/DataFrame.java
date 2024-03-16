@@ -25,6 +25,14 @@ public class DataFrame {
         return names;
     }
 
+    public Column getColumn(String columnName) {
+        return columns.stream()
+                .filter(column -> column.getName().equals(columnName))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Column not found: " + columnName));
+
+    }
+
     public int getRowCount() {
         return columns.isEmpty() ? 0 : columns.get(0).getSize();
     }
@@ -56,5 +64,19 @@ public class DataFrame {
             }
         }
         throw new IllegalArgumentException("Column " + columnName + " does not exist.");
+    }
+
+    public ArrayList<String> getRowById(String Id) {
+        ArrayList<String> row = new ArrayList<>();
+        for (Column column : columns) {
+            if (column.getName().equals("ID")) {
+                int rowIndex = column.getRowIndexById(Id);
+                for (Column c : columns) {
+                    row.add(c.getRowValue(rowIndex));
+                }
+                return row;
+            }
+        }
+        throw new IllegalArgumentException("The provided ID does not exist.");
     }
 }

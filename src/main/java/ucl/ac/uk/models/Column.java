@@ -27,6 +27,15 @@ public class Column {
         }
     }
 
+    public int getRowIndexById(String id) {
+        for (int i = 0; i < getSize(); i++) {
+            if (rows.get(i).equals(id)) {
+                return i;
+            }
+        }
+        throw new IllegalArgumentException("ID " + id + " does not exist.");
+    }
+
     public void setRowValue(int rowIndex, String value) {
         if (rowIndex > getSize() - 1 || rowIndex < 0) {
             throw new IndexOutOfBoundsException("Index " + rowIndex + " is out of bounds.");
