@@ -40,7 +40,14 @@ public class DataFrame {
     public String getValue(String columnName, int rowIndex) {
         for (Column column : columns) {
             if (column.getName().equals(columnName)) {
-                return column.getRowValue(rowIndex);
+                try {
+                    return column.getRowValue(rowIndex);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println(columnName);
+                    System.out.println(column.getRows().size());
+                    System.out.println(column.getRows().toString());
+                    throw new IndexOutOfBoundsException("Index " + rowIndex + " is out of bounds.");
+                }
             }
         }
         throw new IllegalArgumentException("Column " + columnName + " does not exist.");
@@ -78,5 +85,17 @@ public class DataFrame {
             }
         }
         throw new IllegalArgumentException("The provided ID does not exist.");
+    }
+    public int getRowIndexById(String Id) {
+        for (Column column : columns) {
+            if (column.getName().equals("ID")) {
+                return column.getRowIndexById(Id);
+            }
+        }
+        throw new IllegalArgumentException("The provided ID does not exist.");
+    }
+
+    public ArrayList<Column> getColumns() {
+        return columns;
     }
 }

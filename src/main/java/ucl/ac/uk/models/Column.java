@@ -27,6 +27,10 @@ public class Column {
         }
     }
 
+    public ArrayList<String> getRows() {
+        return rows;
+    }
+
     public int getRowIndexById(String id) {
         for (int i = 0; i < getSize(); i++) {
             if (rows.get(i).equals(id)) {
