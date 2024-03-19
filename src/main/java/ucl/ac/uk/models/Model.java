@@ -10,6 +10,7 @@ import ucl.ac.uk.exceptions.ExistingColumnNameException;
 
 public class Model {
     private final String fileName = "patients100.csv";
+    public boolean errorState = false;
     public static enum SortOrder {
         ASC, DESC
     }
@@ -18,6 +19,9 @@ public class Model {
 
     public Model() {
         this.dataFrame = DataLoader.loadCSVData(fileName);
+        if (dataFrame == null) {
+            this.errorState = true;
+        }
     }
 
     public void addColumn(Column column) throws ExistingColumnNameException {
@@ -87,8 +91,6 @@ public class Model {
     public void addRow(Map<String, String> row) throws IOException {
         UUID uuid = UUID.randomUUID();
         row.put("ID", uuid.toString());
-        System.out.println(row.toString() + "row");
-        System.out.println(row.get("ZIP"));
         for (Map.Entry<String, String> entry : row.entrySet()) {
             addValue(entry.getKey(), entry.getValue());
         }

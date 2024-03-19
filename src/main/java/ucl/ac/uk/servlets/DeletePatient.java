@@ -17,18 +17,12 @@ public class DeletePatient extends HttpServlet {
     {
 
         String id = request.getParameter("selectedId");
-        System.out.println("id: " + id);
         try {
             model.deleteRow(id);
-            System.out.println("inside the try block");
             request.setAttribute("successMessage", "The row was successfully deleted");
         } catch (IllegalArgumentException e) {
-            System.out.println("inside the illegal arg block");
-            e.printStackTrace();
             request.setAttribute("errorMessage", "Invalid ID: " + id);
         } catch (IOException e) {
-            System.out.println("inside the io block");
-            e.printStackTrace();
             request.setAttribute("errorMessage", "A problem occurred when handling files");
         }
 

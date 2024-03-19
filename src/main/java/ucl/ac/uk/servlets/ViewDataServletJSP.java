@@ -20,8 +20,15 @@ public class ViewDataServletJSP extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException
     {
+
+        if (model.errorState) {
+            request.setAttribute("errorMessage", "An unexpected error occurred");
+            RequestDispatcher dispatch = request.getRequestDispatcher("/views/errorCard.jsp");
+            dispatch.forward(request, response);
+            return;
+        }
         ArrayList<String> columnNames = model.getColumnNames();
-        int rowCount = model.getRowCount();
+
 
         String searchText = request.getParameter("searchText");
         String sortOrderParam = request.getParameter("sortOrder");
@@ -32,7 +39,11 @@ public class ViewDataServletJSP extends HttpServlet {
 
         ArrayList<String> matchedIds = new ArrayList<>();
         if (searchText != null && !searchText.isEmpty() && columnNameSearch != null && !columnNameSearch.isEmpty()) {
-            matchedIds = model.searchData(searchText, columnNameSearch);
+            try {
+                matchedIds = model.searchData(searchText, columnNameSearch);
+            } catch (IllegalArgumentException e) {
+                request.setAttribute("errorMessage", "Invalid search column: " + columnNameSearch);
+            }
         }
 
         Model.SortOrder sortOrder = Model.SortOrder.ASC;
@@ -41,10 +52,14 @@ public class ViewDataServletJSP extends HttpServlet {
             try {
                 sortOrder = Model.SortOrder.valueOf(sortOrderParam.toUpperCase());
             } catch (IllegalArgumentException e) {
-                request.setAttribute("errorMessae", "Invalid sort order: " + sortOrderParam);
+                request.setAttribute("errorMessage", "Invalid sort order: " + sortOrderParam);
             }
             if (columnNameSort != null && !columnNameSort.isEmpty()) {
-                matchedIds = model.sortData(columnNameSort, sortOrder);
+                if (!columnNames.contains(columnNameSort)) {
+                    request.setAttribute("errorMessage", "Invalid sort column: " + columnNameSort);
+                } else {
+                    matchedIds = model.sortData(columnNameSort, sortOrder);
+                }
             }
         }
 
