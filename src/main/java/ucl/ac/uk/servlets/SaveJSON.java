@@ -32,7 +32,7 @@ public class SaveJSON extends HttpServlet {
         try {
             jsonData = JSONWriter.createJSONFromModel(model);
         } catch (JsonProcessingException e) {
-            request.setAttribute("errorMessage", "An unexpected error occurred");
+            ServletUtils.handleError(request, response, "An unexpected error occurred");
         }
 
         request.setAttribute("model", model);

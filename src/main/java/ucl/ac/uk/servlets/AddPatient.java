@@ -32,15 +32,15 @@ public class AddPatient extends HttpServlet {
 
         try {
             model.addRow(columnValues);
-            request.setAttribute("successMessage", "The row was successfully edited");
         } catch (IOException e) {
-            request.setAttribute("errorMessage", "A problem occurred when handling files");
+            ServletUtils.handleError(request, response, "A problem occurred when handling files");
+            return;
         } catch (Exception e) {
-            request.setAttribute("errorMessage", "An unexpected error occurred");
+            ServletUtils.handleError(request, response, "An unexpected error occurred");
+            return;
         }
 
         request.setAttribute("model", model);
-        RequestDispatcher dispatch = request.getRequestDispatcher("/views/viewdata.jsp");
-        dispatch.forward(request, response);
+        response.sendRedirect("/viewdata.html");
     }
 }

@@ -14,24 +14,6 @@
     <title>Data Overview</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/styles.css">
-    <style>
-        .table-container {
-            width: 95%; /* Set width of the container */
-            overflow: auto; /* Enable scrolling */
-            margin: 0 auto; /* Center the container horizontally */
-            border-radius: 10px;
-            border: 2px solid #C7C7C7;
-        }
-        .custom-btn {
-            background-color: #E5E9F2; /* Your custom color */
-            border-color: #E5E9F2; /* Border color same as background color */
-        }
-        /* Maintain Bootstrap hover effect */
-        .custom-btn:hover {
-            background-color: #c2c6cf; /* Your custom color on hover */
-            border-color: #c2c6cf; /* Border color on hover */
-        }
-    </style>
 </head>
 <body>
 <script>
@@ -40,6 +22,7 @@
         document.getElementById('selectedIdToEdit').value = selectedId;
     }
 </script>
+
 <%--navbar--%>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary p-3">
     <a class="navbar-brand" href="#">Patients Data overview</a>
@@ -53,17 +36,17 @@
                 <a class="nav-link" href="#"><span class="badge badge-pill" style="background-color: rgba(0, 0, 0, 0.25); border-radius: 12px; margin-top: 3px; ">Table view</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="list">List view</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/list.html">List view</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath}/graph.html">Graphs</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/graph.html">Graph</a>
             </li>
         </ul>
     </div>
     <form action="${pageContext.request.contextPath}/savejson" method="post">
         <button type="submit" class="btn btn-light btn-sm ml-auto" data-bs-toggle="modal" style="margin-top: 18px">Save as a json<span style="margin-left: 8px"><img src="${pageContext.request.contextPath}/resources/icons/cloud-download.svg" alt="add"/></span></button>
     </form>
-    <button class="btn btn-light btn-sm ml-auto" style="margin-top: 2px; margin-left: 8px" data-bs-toggle="modal" data-bs-target="#addModal">Add new row <span><img src="${pageContext.request.contextPath}/resources/icons/plus.svg" alt="add"/></span></button>
+    <button class="btn btn-light btn-sm ml-auto" style="margin-top: 2px; margin-left: 8px" data-bs-toggle="modal" data-bs-target="#addModal">Add a new row <span><img src="${pageContext.request.contextPath}/resources/icons/plus.svg" alt="add"/></span></button>
 </nav>
 
 
@@ -72,9 +55,8 @@
     <jsp:include page="searchForm.jsp"/>
     <jsp:include page="sortForm.jsp"/>
 </div>
-<div class="table-container" style="margin-top: 4px">
-    <jsp:include page="table.jsp"/>
-</div>
+
+<jsp:include page="table.jsp"/>
 
 
 <%--Delete modal--%>

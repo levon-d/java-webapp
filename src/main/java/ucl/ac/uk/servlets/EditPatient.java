@@ -21,10 +21,7 @@ public class EditPatient extends HttpServlet {
         String value = request.getParameter("newValue");
 
         if (columnName.equalsIgnoreCase("ID")) {
-            request.setAttribute("errorMessage", "ID cannot be edited");
-            request.setAttribute("model", model);
-            RequestDispatcher dispatch = request.getRequestDispatcher("/views/viewdata.jsp");
-            dispatch.forward(request, response);
+            ServletUtils.handleError(request, response, "ID cannot be edited");
             return;
         }
 
@@ -32,13 +29,14 @@ public class EditPatient extends HttpServlet {
             model.editRow(id, columnName, value);
             request.setAttribute("successMessage", "The row was successfully edited");
         } catch (IllegalArgumentException e) {
-            request.setAttribute("errorMessage", "Invalid ID: " + id);
+            ServletUtils.handleError(request, response, "Invalid ID: " + id);
+            return;
         } catch (IOException e) {
-            request.setAttribute("errorMessage", "A problem occurred when handling files");
+            ServletUtils.handleError(request, response, "A problem occurred when handling files");
+            return;
         }
 
         request.setAttribute("model", model);
-        RequestDispatcher dispatch = request.getRequestDispatcher("/views/viewdata.jsp");
-        dispatch.forward(request, response);
+        response.sendRedirect("/viewdata.html");
     }
 }

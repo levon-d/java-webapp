@@ -9,7 +9,7 @@ import java.util.Map;
 import ucl.ac.uk.exceptions.ExistingColumnNameException;
 
 public class Model {
-    private final String fileName = "patients100.csv";
+    private final String fileName = "patients1000.csv";
     public boolean errorState = false;
     public static enum SortOrder {
         ASC, DESC
@@ -41,7 +41,7 @@ public class Model {
     }
 
     public void putValue(String columnName, int rowIndex, String value) {
-        dataFrame.putValue(columnName, rowIndex, value);
+                dataFrame.putValue(columnName, rowIndex, value);
     }
 
     public void addValue(String columnName, String value) {
@@ -61,7 +61,7 @@ public class Model {
 
         ArrayList<String> ids = new ArrayList<String>();
 
-        if (!dataFrame.getColumnNames().contains(columnName)) {
+        if (!getColumnNames().contains(columnName)) {
             throw new IllegalArgumentException("Column " + columnName + "does not exist");
         }
         for (Map.Entry<String, String> row : getAllRows(columnName).entrySet()) {

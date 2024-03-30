@@ -29,13 +29,9 @@ public class DataLoader {
 
                 currentLine = br.readLine();
                 while (currentLine != null) {
-                    String[] values = currentLine.split(",");
+                    String[] values = currentLine.split(",", -1);
                     for (int i = 0; i < values.length; i++) {
                         columns.get(i).addRowValue(values[i]);
-                    }
-                    // If the line ends with a comma, manually append an empty string for the last column
-                    if (currentLine.endsWith(",")) {
-                        columns.get(columns.size() - 1).addRowValue("");
                     }
 
                     currentLine = br.readLine(); // Read the next line

@@ -11,7 +11,7 @@ import java.util.Comparator;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@WebServlet("/viewdata.html")
+@WebServlet({"/viewdata.html", ""})
 public class ViewDataServletJSP extends HttpServlet {
 
     private Model model = ModelFactory.getModel();
@@ -22,9 +22,7 @@ public class ViewDataServletJSP extends HttpServlet {
     {
 
         if (model.errorState) {
-            request.setAttribute("errorMessage", "An unexpected error occurred");
-            RequestDispatcher dispatch = request.getRequestDispatcher("/views/errorCard.jsp");
-            dispatch.forward(request, response);
+            ServletUtils.handleError(request, response, "An unexpected error occurred");
             return;
         }
         ArrayList<String> columnNames = model.getColumnNames();
@@ -36,13 +34,17 @@ public class ViewDataServletJSP extends HttpServlet {
         String columnNameSort = request.getParameter("columnNameSort");
         String limitParam = request.getParameter("limit");
 
+        String filterText = request.getParameter("filterText");
+        String filterColumn = request.getParameter("filterColumn");
+
 
         ArrayList<String> matchedIds = new ArrayList<>();
         if (searchText != null && !searchText.isEmpty() && columnNameSearch != null && !columnNameSearch.isEmpty()) {
             try {
                 matchedIds = model.searchData(searchText, columnNameSearch);
             } catch (IllegalArgumentException e) {
-                request.setAttribute("errorMessage", "Invalid search column: " + columnNameSearch);
+                ServletUtils.handleError(request, response, "Invalid search column: " + columnNameSearch);
+                return;
             }
         }
 
@@ -52,11 +54,13 @@ public class ViewDataServletJSP extends HttpServlet {
             try {
                 sortOrder = Model.SortOrder.valueOf(sortOrderParam.toUpperCase());
             } catch (IllegalArgumentException e) {
-                request.setAttribute("errorMessage", "Invalid sort order: " + sortOrderParam);
+                ServletUtils.handleError(request, response, "Invalid sort order: " + sortOrderParam);
+                return;
             }
             if (columnNameSort != null && !columnNameSort.isEmpty()) {
                 if (!columnNames.contains(columnNameSort)) {
-                    request.setAttribute("errorMessage", "Invalid sort column: " + columnNameSort);
+                    ServletUtils.handleError(request, response, "Invalid sort column: " + columnNameSort);
+                    return;
                 } else {
                     matchedIds = model.sortData(columnNameSort, sortOrder);
                 }
@@ -67,12 +71,14 @@ public class ViewDataServletJSP extends HttpServlet {
             try {
                 int limit = Integer.parseInt(limitParam);
                 if (limit < 0) {
-                    request.setAttribute("errorMessage", "Invalid limit: " + limitParam);
+                    ServletUtils.handleError(request, response, "Invalid limit: " + limitParam);
+                    return;
                 } else {
                     matchedIds = (ArrayList<String>) matchedIds.stream().limit(limit).collect(Collectors.toList());
                 }
             } catch (NumberFormatException e) {
-                request.setAttribute("errorMessage", "Invalid limit: " + limitParam);
+                ServletUtils.handleError(request, response, "Invalid limit: " + limitParam);
+                return;
             }
         }
 

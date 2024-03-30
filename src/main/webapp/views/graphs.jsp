@@ -33,10 +33,10 @@
                 <a class="nav-link" href="${pageContext.request.contextPath}/viewdata.html">Table View</a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="list">List view</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/list.html">List view</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"><span class="badge badge-pill" style="background-color: rgba(0, 0, 0, 0.25); border-radius: 12px; margin-top: 3px; ">Graphs</span></a>
+                <a class="nav-link"><span class="badge badge-pill" style="background-color: rgba(0, 0, 0, 0.25); border-radius: 12px; margin-top: 3px; ">Graph</span></a>
             </li>
         </ul>
     </div>
@@ -47,8 +47,10 @@
     ArrayList<String> labels = (ArrayList<String>) request.getAttribute("labels");
     ArrayList<Integer> data = (ArrayList<Integer>) request.getAttribute("data");
 %>
+<div class="container-md" style="margin: 0 auto; justify-content: center; align-items: center; display: flex; height: 100vh;">
+    <canvas id="ageDistributionChart"></canvas>
+</div>
 
-<canvas id="ageDistributionChart"></canvas>
 <script>
     let ctx = document.getElementById('ageDistributionChart').getContext('2d');
     let ageDistributionChart = new Chart(ctx, {
@@ -58,9 +60,10 @@
             datasets: [{
                 label: 'Age Distribution',
                 data: <%=data%>,
-                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                borderColor: 'rgba(54, 162, 235, 1)',
-                borderWidth: 1
+                backgroundColor: 'rgba(255, 99, 132, 1)',
+                borderColor: 'rgba(255,99,132, 1)',
+                borderWidth: 2,
+                borderRadius: 5
             }]
         },
         options: {

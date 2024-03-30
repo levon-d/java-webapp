@@ -19,15 +19,15 @@ public class DeletePatient extends HttpServlet {
         String id = request.getParameter("selectedId");
         try {
             model.deleteRow(id);
-            request.setAttribute("successMessage", "The row was successfully deleted");
         } catch (IllegalArgumentException e) {
-            request.setAttribute("errorMessage", "Invalid ID: " + id);
+            ServletUtils.handleError(request, response, "Invalid ID: " + id);
+            return;
         } catch (IOException e) {
-            request.setAttribute("errorMessage", "A problem occurred when handling files");
+            ServletUtils.handleError(request, response, "A problem occurred when handling files");
+            return;
         }
 
         request.setAttribute("model", model);
-        RequestDispatcher dispatch = request.getRequestDispatcher("/views/viewdata.jsp");
-        dispatch.forward(request, response);
+        response.sendRedirect("/viewdata.html");
     }
 }
