@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 
 public class DB {
-    public static Connection connect() throws SQLException {
+    public static Connection connect() {
 
         try {
             // Get database credentials from DatabaseConfig class
