@@ -43,9 +43,6 @@ public class DataFrame {
                 try {
                     return column.getRowValue(rowIndex);
                 } catch (IndexOutOfBoundsException e) {
-                    System.out.println(columnName);
-                    System.out.println(column.getRows().size());
-                    System.out.println(column.getRows().toString());
                     throw new IndexOutOfBoundsException("Index " + rowIndex + " is out of bounds.");
                 }
             }
