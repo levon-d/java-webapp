@@ -17,8 +17,8 @@ public class DB {
             return DriverManager.getConnection(jdbcUrl, user, password);
 
         } catch (SQLException  e) {
-            System.err.println(e.getMessage());
-            return null;
+            System.err.println("Could not connect to Postgres");
+            throw new RuntimeException(e);
         }
     }
 }
