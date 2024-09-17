@@ -94,14 +94,16 @@ public class Model {
         for (Map.Entry<String, String> entry : row.entrySet()) {
             addValue(entry.getKey(), entry.getValue());
         }
-        DataLoader.backupCurrentCsvFile(fileName);
-        DataLoader.writeIntoNewFile(fileName, dataFrame);
+//        DataLoader.backupCurrentCsvFile(fileName);
+//        DataLoader.writeIntoNewFile(fileName, dataFrame);
+        DataLoaderPostgres.addRow(row);
     }
 
     public void editRow(String id, String columnName, String value) throws IOException{
         putValue(columnName, dataFrame.getRowIndexById(id), value);
-        DataLoader.backupCurrentCsvFile(fileName);
-        DataLoader.writeIntoNewFile(fileName, dataFrame);
+//        DataLoader.backupCurrentCsvFile(fileName);
+//        DataLoader.writeIntoNewFile(fileName, dataFrame);
+        DataLoaderPostgres.editRow(id, columnName, value);
     }
 
     public void deleteRow(String id) throws IOException {
@@ -109,8 +111,10 @@ public class Model {
         for (Column column : dataFrame.getColumns()) {
             column.getRows().remove(rowIndex);
         }
-        DataLoader.backupCurrentCsvFile(fileName);
-        DataLoader.writeIntoNewFile(fileName, dataFrame);
+//        DataLoader.backupCurrentCsvFile(fileName);
+//        DataLoader.writeIntoNewFile(fileName, dataFrame);
+        DataLoaderPostgres.deleteRow(id);
+
     }
 
 }
