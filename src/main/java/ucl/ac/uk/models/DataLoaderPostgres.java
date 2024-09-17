@@ -46,7 +46,7 @@ public class DataLoaderPostgres {
         }
         catch (SQLException e) {
             System.out.println("Could not load postgres data");
-            throw new RuntimeException(e);
+            return null;
         }
         return new DataFrame(columns);
     }
