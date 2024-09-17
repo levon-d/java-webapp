@@ -18,7 +18,7 @@ public class Model {
     private DataFrame dataFrame;
 
     public Model() {
-        this.dataFrame = DataLoader.loadCSVData(fileName);
+        this.dataFrame = DataLoaderPostgres.loadPostgresData();
         if (dataFrame == null) {
             this.errorState = true;
         }
