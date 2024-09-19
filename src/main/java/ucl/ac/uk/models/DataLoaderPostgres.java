@@ -17,7 +17,7 @@ import java.util.Map;
 public class DataLoaderPostgres {
     private static Connection connection;
 
-    public DataLoaderPostgres() {
+    static {
         connection = DB.connect();
     }
 
@@ -53,10 +53,10 @@ public class DataLoaderPostgres {
 
     public static void editRow(String id, String columnName, String newValue) {
 
-        String query = "UPDATE patients SET ? = ? WHERE id = ?";
+        String query = String.format("UPDATE patients SET \"%s\" = ? WHERE \"ID\" = ?", columnName);
         Date formattedValue = null;
 
-        if (columnName.equals("birth_date") | columnName.equals("death_date")) {
+        if (columnName.equals("BIRTHDATE") | columnName.equals("DEATHDATE")) {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // Format for converting date strings
             try {
                 formattedValue = new Date(dateFormat.parse(newValue).getTime());
@@ -66,15 +66,13 @@ public class DataLoaderPostgres {
         }
 
         try (PreparedStatement pstmt = connection.prepareStatement(query)) {
-            pstmt.setString(1, columnName);
-
             if (formattedValue == null) {
-                pstmt.setString(2, newValue);
+                pstmt.setString(1, newValue);
             } else {
-                pstmt.setDate(2, formattedValue);
+                pstmt.setDate(1, formattedValue);
             }
 
-            pstmt.setString(3, id);
+            pstmt.setString(2, id);
             pstmt.executeUpdate();
 
         } catch (SQLException e) {
@@ -92,7 +90,7 @@ public class DataLoaderPostgres {
             columns.append(entry.getKey()).append(",");
             values.append("?,");
 
-            if (entry.getKey().equals("birth_date") || entry.getKey().equals("death_date")) {
+            if (entry.getKey().equals("BIRTHDATE") || entry.getKey().equals("DEATHDATE")) {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 try {
                     parameters.add(new Date(dateFormat.parse(entry.getValue()).getTime()));
@@ -121,7 +119,7 @@ public class DataLoaderPostgres {
     }
 
     public static void deleteRow(String id) {
-        String query = String.format("DELETE FROM PATIENTS WHERE ID=%s", id);
+        String query = String.format("DELETE FROM PATIENTS WHERE  \"ID\"=%s", id);
 
         try (PreparedStatement pstmt = connection.prepareStatement(query)) {
            pstmt.executeUpdate();

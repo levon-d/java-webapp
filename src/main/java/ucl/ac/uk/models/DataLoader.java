@@ -78,14 +78,6 @@ public class DataLoader {
                 // Prepare an SQL statement for inserting data
                 StringBuilder sql = new StringBuilder("INSERT INTO patients (");
                 for (String columnName : columnNames) {
-
-                    switch (columnName) {
-                        case "BIRTHDATE" -> columnName = "birth_date";
-                        case "DEATHDATE" -> columnName = "death_date";
-                        case "FIRST" -> columnName = "first_name";
-                        case "LAST" -> columnName = "last_name";
-                        default -> columnName = columnName.toLowerCase();
-                    }
                     sql.append(columnName).append(",");
                 }
 
