@@ -1,20 +1,18 @@
 package ucl.ac.uk.servlets;
 
 import ucl.ac.uk.models.Model;
-import ucl.ac.uk.models.ModelFactory;
+import ucl.ac.uk.models.ModelSingleton;
 import java.io.*;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @WebServlet({"/viewdata.html", ""})
 public class ViewDataServletJSP extends HttpServlet {
 
-    private Model model = ModelFactory.getModel();
+    private Model model = ModelSingleton.getModel();
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)

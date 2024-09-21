@@ -1,7 +1,7 @@
 package ucl.ac.uk.servlets;
 
 import ucl.ac.uk.models.Model;
-import ucl.ac.uk.models.ModelFactory;
+import ucl.ac.uk.models.ModelSingleton;
 import java.io.*;
 import java.util.HashMap;
 import java.util.List;
@@ -13,7 +13,7 @@ import javax.servlet.http.*;
 @WebServlet("/addpatient")
 public class AddPatient extends HttpServlet {
 
-    private Model model = ModelFactory.getModel();
+    private Model model = ModelSingleton.getModel();
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException

@@ -1,5 +1,5 @@
 package ucl.ac.uk.models;
-public class ModelFactory {
+public class ModelSingleton {
     private static Model model;
     public static Model getModel() {
         if (model == null) {

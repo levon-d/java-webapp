@@ -2,17 +2,11 @@ package ucl.ac.uk.servlets;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import ucl.ac.uk.models.Model;
-import ucl.ac.uk.models.ModelFactory;
+import ucl.ac.uk.models.ModelSingleton;
 import ucl.ac.uk.models.JSONWriter;
-import java.io.*;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javax.servlet.*;
+
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,7 +16,7 @@ import java.io.PrintWriter;
 @WebServlet("/savejson")
 public class SaveJSON extends HttpServlet {
 
-    private Model model = ModelFactory.getModel();
+    private Model model = ModelSingleton.getModel();
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException
