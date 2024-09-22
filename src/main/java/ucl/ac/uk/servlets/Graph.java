@@ -28,7 +28,7 @@ public class Graph extends HttpServlet {
         for (int row = 0; row < rowCount; row++) {
 
             // don't account for dead people
-            if (!model.getValue("DEATHDATE", row).isEmpty()) {
+            if (model.getValue("DEATHDATE", row) != null) {
                 continue;
             }
 
