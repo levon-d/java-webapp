@@ -87,7 +87,7 @@ public class DataLoaderPostgres {
         ArrayList<Object> parameters = new ArrayList<>();
 
         for (Map.Entry<String, String> entry : row.entrySet()) {
-            columns.append(entry.getKey()).append(",");
+            columns.append("\"").append(entry.getKey()).append("\",");
             values.append("?,");
 
             if (entry.getKey().equals("BIRTHDATE") || entry.getKey().equals("DEATHDATE")) {
@@ -114,15 +114,17 @@ public class DataLoaderPostgres {
             }
             pstmt.executeUpdate();
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
             throw new RuntimeException(e);
         }
     }
 
     public static void deleteRow(String id) {
-        String query = String.format("DELETE FROM PATIENTS WHERE  \"ID\"=%s", id);
+        String query = "DELETE FROM patients WHERE \"ID\" = ?";
 
         try (PreparedStatement pstmt = connection.prepareStatement(query)) {
-           pstmt.executeUpdate();
+            pstmt.setString(1, id);
+            pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Could not delete a row");
             throw new RuntimeException(e);
