@@ -1,7 +1,7 @@
 package ucl.ac.uk.servlets;
 
 import ucl.ac.uk.models.Model;
-import ucl.ac.uk.models.ModelSingleton;
+import ucl.ac.uk.models.ModelFactory;
 import java.io.*;
 import java.util.HashMap;
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @WebServlet("/graph.html")
 public class Graph extends HttpServlet {
 
-    private Model model = ModelSingleton.getModel();
+    private Model model = ModelFactory.getModel();
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException
