@@ -32,9 +32,6 @@ public class ViewDataServletJSP extends HttpServlet {
         String columnNameSort = request.getParameter("columnNameSort");
         String limitParam = request.getParameter("limit");
 
-        String filterText = request.getParameter("filterText");
-        String filterColumn = request.getParameter("filterColumn");
-
 
         ArrayList<String> matchedIds = new ArrayList<>();
         if (searchText != null && !searchText.isEmpty() && columnNameSearch != null && !columnNameSearch.isEmpty()) {

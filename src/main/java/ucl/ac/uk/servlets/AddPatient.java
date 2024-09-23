@@ -42,5 +42,6 @@ public class AddPatient extends HttpServlet {
 
         request.setAttribute("model", model);
         response.sendRedirect("/viewdata.html");
+
     }
 }
