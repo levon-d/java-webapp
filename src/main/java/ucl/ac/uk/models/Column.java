@@ -31,13 +31,13 @@ public class Column {
         return rows;
     }
 
-    public int getRowIndexById(String id) {
+    public int getRowIndexByValue(String value) {
         for (int i = 0; i < getSize(); i++) {
-            if (rows.get(i).equals(id)) {
+            if (rows.get(i).equals(value)) {
                 return i;
             }
         }
-        throw new IllegalArgumentException("ID " + id + " does not exist.");
+        throw new IllegalArgumentException(value + " does not exist.");
     }
 
     public void setRowValue(int rowIndex, String value) {

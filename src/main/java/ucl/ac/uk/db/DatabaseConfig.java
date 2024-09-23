@@ -17,11 +17,11 @@ public class DatabaseConfig {
             properties.load(input);
         } catch (IOException e) {
             e.printStackTrace();
+            throw new RuntimeException("Error whilst reading properties file");
         }
     }
 
     public static String getDbUrl() {
-
         return properties.getProperty("db.url");
     }
 

@@ -74,7 +74,7 @@ public class DataFrame {
         ArrayList<String> row = new ArrayList<>();
         for (Column column : columns) {
             if (column.getName().equals("ID")) {
-                int rowIndex = column.getRowIndexById(Id);
+                int rowIndex = column.getRowIndexByValue(Id);
                 for (Column c : columns) {
                     row.add(c.getRowValue(rowIndex));
                 }
@@ -86,7 +86,7 @@ public class DataFrame {
     public int getRowIndexById(String Id) {
         for (Column column : columns) {
             if (column.getName().equals("ID")) {
-                return column.getRowIndexById(Id);
+                return column.getRowIndexByValue(Id);
             }
         }
         throw new IllegalArgumentException("The provided ID does not exist.");
